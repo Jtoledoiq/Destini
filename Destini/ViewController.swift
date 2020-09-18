@@ -33,32 +33,122 @@ class ViewController: UIViewController {
     @IBOutlet weak var topButton: UIButton!         // Has TAG = 1
     @IBOutlet weak var bottomButton: UIButton!      // Has TAG = 2
     @IBOutlet weak var storyTextView: UILabel!
+    @IBOutlet var restartButton: UIButton!
+    
     
     // TODO Step 5: Initialise instance variables here
     
+    var storyIndex: Int = 0
+    var storyBranch: Int = 0
     
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        
-        // TODO Step 3: Set the text for the storyTextView, topButton, bottomButton, and to T1_Story, T1_Ans1, and T1_Ans2
+        storyTextView.text = story1
+        topButton.setTitle(answer1a, for: .normal)
+        bottomButton.setTitle(answer1b, for: .normal)
+        restartButton.isHidden = true
         
     }
 
     
     // User presses one of the buttons
     @IBAction func buttonPressed(_ sender: UIButton) {
-    
-        // TODO Step 4: Write an IF-Statement to update the views
-                
-        // TODO Step 6: Modify the IF-Statement to complete the story
         
-    
-    }
+        if storyIndex == 0 && storyBranch == 0 {
+            if sender.tag == 1 {
+                storyTextView.text = story3
+                topButton.setTitle(answer3a, for: .normal)
+                bottomButton.setTitle(answer3b, for: .normal)
+                storyIndex = 1
+                storyBranch = 0
+            } else {
+                storyTextView.text = story2
+                topButton.setTitle(answer2a, for: .normal)
+                bottomButton.setTitle(answer2b, for: .normal)
+                storyIndex = 1
+                storyBranch = 1
+            }
+            
+        }
+
+        else if storyIndex == 1 && storyBranch == 0  {
+            if sender.tag == 1 {
+                storyTextView.text = story6
+                topButton.isHidden = true
+                bottomButton.isHidden = true
+                restartButton.isHidden = false
+
+                storyIndex = 2
+                storyBranch = 0
+            } else {
+                storyTextView.text = story5
+                topButton.setTitle("no", for: .normal)
+                topButton.isHidden = true
+                bottomButton.isHidden = true
+                restartButton.isHidden = false
+                storyIndex = 2
+                storyBranch = 1
+            }
+        }
+        
+        else if storyIndex == 1 && storyBranch == 1  {
+            if sender.tag == 1 {
+                storyTextView.text = story3
+                topButton.setTitle(answer3a, for: .normal)
+                bottomButton.setTitle(answer3b, for: .normal)
+                storyIndex = 2
+                storyBranch = 0
+            } else {
+                storyTextView.text = story4
+                topButton.isHidden = true
+                bottomButton.isHidden = true
+                restartButton.isHidden = false
+                storyIndex = 2
+                storyBranch = 1
+            }
+        }
+        
+        else if storyIndex == 2 && storyBranch == 0  {
+            if sender.tag == 1 {
+                storyTextView.text = story6
+                topButton.isHidden = true
+                bottomButton.isHidden = true
+                restartButton.isHidden = false
+                storyIndex = 3
+                storyBranch = 0
+            } else {
+                storyTextView.text = story5
+                topButton.isHidden = true
+                bottomButton.isHidden = true
+                restartButton.isHidden = false
+                storyIndex = 3
+                storyBranch = 1
+            }
+        }
     
 
+        
+    }
+    
+    
+    @IBAction func restartButton(_ sender: UIButton) {
+        restart()
+    }
+    
+    func restart () {
+        print("starting again")
+        storyIndex = 0
+        storyBranch = 0
+        storyTextView.text = story1
+        topButton.isHidden = false
+        bottomButton.isHidden = false
+        restartButton.isHidden = true
+        topButton.setTitle(answer1a, for: .normal)
+        bottomButton.setTitle(answer1b, for: .normal)
+    }
 
 
 }
